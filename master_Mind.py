@@ -8,8 +8,13 @@ print("MasterMind")
 
 import random
 
-def generate_Code(length=4, digits=6):
-    return [str(random.randint(1, digits)) for _ in range(length)]
+colors = ["red", "blue", "green", "yellow", "orange", "brown"]
+
+def generate_code(length=4, digits=6, use_colors=False):
+    if use_colors:
+        return [random.choice(colors) for _ in range(length)]
+    else:
+        return [str(random.randint(1, digits)) for _ in range(length)]
 
 def get_Feedback(secret, guess):
     black_Pegs = sum(s == g for s, g in zip(secret, guess))
