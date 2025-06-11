@@ -61,14 +61,28 @@ def play_Mastermind():
 
     attempts = 10
     for attempt in range(1, attempts + 1):
-        guess = ""
-        valid_Guess = False
-        while not valid_Guess:
-            guess = input(f"Attempt {attempt}: ").strip()
-            valid_Guess = len(guess) == 4 and all(c in "123456" for c in guess)
-            if not valid_Guess:
-                print("Invalid input. Enter 4 digits, each from 1 to 6.")
-            show_Secret(secret_Code) if guess == "cheat" else False
+        while True:
+            guess_input = input(f"Attempt {attempt}: ").strip()
+            if guess_input.lower() == "cheat":
+                if password():
+                    show_Secret(secret_Code)
+                continue
+
+            if use_colors:
+                guess = guess_input.lower().split()
+                if len(guess) != 4 or any(color not in colors for color in guess):
+                    print("Invalid input. Enter 4 colors separated by spaces.")
+                    print("Possible colors:", ", ".join(colors))
+                else:
+                    break
+            else:
+                if len(guess_input) == 4 and all(c in "123456" for c in guess_input):
+                    guess = list(guess_input)
+                    break
+                else:
+                    print("Invalid input. Enter a 4-digit number using digits 1-6.")
+
+                
 
         black, white = get_Feedback(secret_Code, guess)
         print(f"Black pegs (correct position): {black}, White pegs (wrong position): {white}")
