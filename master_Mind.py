@@ -47,9 +47,19 @@ def password():
 def play_Mastermind():
     print("Welcome to Mastermind!")
     print("Guess the 4-digit code. Each digit is from 1 to 6. You have 10 attempts.")
-    secret_Code = generate_Code()
-    attempts = 10
+    print("Or colors. Possible colors: red, blue, green, yellow, orange, brown.")
+    print("Choose mode:")
+    print("1. Digits")
+    print("2. Colors")
+    
+    mode = ""
+    while mode not in ["1", "2"]:
+        mode = input("Enter 1 or 2: ").strip()
 
+    use_colors = mode == "2"
+    secret_Code = generate_code(use_colors=use_colors)
+
+    attempts = 10
     for attempt in range(1, attempts + 1):
         guess = ""
         valid_Guess = False
